@@ -33,4 +33,9 @@ public class Statics
   } catch (Exception e) { return null; }
   return s;
  }
+ 
+ static String SQLStr(String s)
+ {
+  return s.replaceAll("'","''");
+ }
 }

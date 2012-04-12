@@ -22,7 +22,7 @@ public class Db
  
  void conn()
  {
-  try 
+  try
   {
    Class.forName(driver).newInstance();
    conn = DriverManager.getConnection(url+dbName,userName,password);
@@ -31,7 +31,7 @@ public class Db
 
  void disconn()
  {
-  try 
+  try
   {
    conn.close();
   } catch(Exception e) { System.out.println("disconn ex"); }
@@ -39,7 +39,7 @@ public class Db
  
  void nonQuery(String str)
  {
-  try 
+  try
   {
    conn.createStatement().executeUpdate(str);
   } catch (SQLException e) { e.printStackTrace(); }
@@ -47,9 +47,17 @@ public class Db
  
  ResultSet query(String str)
  {
-  try 
+  try
   {
    return conn.createStatement().executeQuery(str); 
   } catch (SQLException e) { return null; }
+ }
+ 
+ int count(String str)
+ {
+  try
+  {
+   return Integer.parseInt(conn.createStatement().executeQuery(str).getString(1));
+  } catch (SQLException e) { return -1; }
  }
 }
