@@ -9,14 +9,10 @@ public class Offer
  final String start_at;
  final String end_at;
  final int price;
- final int views; //
- final int redirects; //
- final int city_id; //
- final int country_id; // 
- final int category_id; //
- final int store_id; //
- final String created_at; //
- final String updated_at; //
+ final String city;
+ final String country; 
+ final String category;
+ final String store;
  final String currency;
 
  public Offer(String title,
@@ -27,12 +23,10 @@ public class Offer
               String start_at,
               String end_at,
               int price,
-              int views,
-              int redirects,
-              int city_id,
-              int country_id,
-              int category_id,
-              int store_id,
+              String city,
+              String country,
+              String category,
+              String store,
               String created_at,
               String updated_at,
               String currency)
@@ -45,14 +39,10 @@ public class Offer
   this.start_at = start_at;
   this.end_at = end_at;
   this.price = price;
-  this.views = views;
-  this.redirects = redirects;
-  this.city_id = city_id;
-  this.country_id = country_id;
-  this.category_id = category_id;
-  this.store_id = store_id;
-  this.created_at = created_at;
-  this.updated_at = updated_at;
+  this.city = city;
+  this.country = country;
+  this.category = category;
+  this.store = store;
   this.currency = currency;
  }
 }

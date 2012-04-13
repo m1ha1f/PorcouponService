@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class Statics 
 {
@@ -41,5 +45,20 @@ public class Statics
  static String SQLStr(String s)
  {
   return s.replaceAll("'","''");
+ }
+ 
+ static String now()
+ {
+  SimpleDateFormat dateFormatGmt = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+  dateFormatGmt.setTimeZone(TimeZone.getTimeZone("GMT"));
+  
+  SimpleDateFormat dateFormatLocal = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+  
+  try 
+  {
+   return dateFormatLocal.parse( dateFormatGmt.format(new Date()) ).toString();
+  } catch (ParseException e) { e.printStackTrace(); }
+  
+  return "";
  }
 }
