@@ -9,14 +9,14 @@ public class Offer
  final String start_at;
  final String end_at;
  final int price;
- final int views;
- final int redirects;
- final int city_id;
- final int country_id;
- final int category_id;
- final int store_id;
- final String created_at;
- final String updated_at;
+ final int views; //
+ final int redirects; //
+ final int city_id; //
+ final int country_id; // 
+ final int category_id; //
+ final int store_id; //
+ final String created_at; //
+ final String updated_at; //
  final String currency;
 
  public Offer(String title,

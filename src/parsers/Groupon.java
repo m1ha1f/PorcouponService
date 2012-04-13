@@ -4,10 +4,11 @@ import main.JPar;
 import main.Offer;
 import main.Statics;
 
-public class Groupon 
+public class Groupon extends Parser
 {
  private final String key = "9506642c0dce14bc1941e4add332d864d6892589";
- private final String baseURL = "https://api.groupon.com/v2/"; 
+ private final String baseURL = "https://api.groupon.com/v2/";
+ private String[] divisions;
  
  private String[] getDivisions()
  {
@@ -41,6 +42,7 @@ public class Groupon
   for(i=0;i<ret.length;i++)
   {
    JPar joferta = jpar.at(i);
+   /*
    ret[i] = new Offer(joferta.fi("announcementTitle").toString(),
                       joferta.fi("pitchHtml").toString(),
                       joferta.fi("mediumImageUrl").toString(),
@@ -50,7 +52,7 @@ public class Groupon
                       joferta.fi("options").at(0).fi("value").fi("amount").toInt(),
                       0,
                       0
-                      );
+                      ); */
   }
   
   return ret;
@@ -59,5 +61,11 @@ public class Groupon
  public Offer next()
  {
   
+  return null;
+ }
+
+ boolean hasNext() 
+ {
+  return false;
  }
 }

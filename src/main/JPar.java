@@ -25,6 +25,8 @@ public class JPar
  {
   JSONObject o;
   try { o = (JSONObject)par.parse(this.s); } catch(Exception e) { return null; }
+  //System.out.println("field "+s+"|");
+  if(o.get(s) == null) return new JPar("");
   return new JPar(o.get(s).toString());
  }
      

@@ -19,17 +19,32 @@ public class OfferInjector
  
  private void verifyDependencies(Offer offer)
  {
-  verifyDependencyStore(offer.store_id);
+  //verifyDependencyStore(offer.store_id);
  }
  
  void inject(Offer offer)
  {
-  //inainte se verifica daca exista toate dependentele iar daca nu se insereaza
   verifyDependencies(offer);
   
-  db.nonQuery("INSERT INTO tmpOferte VALUES ('" + Statics.SQLStr(offer.status) + 
-              "','" + Statics.SQLStr(offer.announcementTitle) + 
-              "','" + Statics.SQLStr(offer.soldQuantityMessage) + "')");
+  db.nonQuery("INSERT INTO coupons VALUES (" +
+              "default,'" +
+              Statics.SQLStr(offer.title) + "','" + 
+              Statics.SQLStr(offer.title) + "','" +
+              offer.image_url + "','" +
+              offer.deal_url + "','" +
+              offer.store_url + "','" +
+              offer.start_at + "','" +
+              offer.end_at + "'," +
+              offer.price + "," +
+              offer.views + "," +
+              offer.redirects + "," +
+              offer.city_id + "," +
+              offer.country_id + "," +
+              offer.category_id + "," +
+              offer.store_id + ",'" +
+              offer.created_at + "','" +
+              offer.updated_at + "','" +
+              offer.currency + "')");
  }
  
  void inject(Offer[] offer)

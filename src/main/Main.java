@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import parsers.ECoupons;
+
 public class Main 
 {
  static void init()
@@ -17,6 +19,7 @@ public class Main
  
  static String GrouponRequest()
  {
+  /*
   String divizie = "abbotsford";
   String url = "https://api.groupon.com/v2/deals.json?division_id="+divizie+"&client_id=9506642c0dce14bc1941e4add332d864d6892589"; 
   try 
@@ -25,6 +28,7 @@ public class Main
   } 
   catch (MalformedURLException e) { e.printStackTrace(); } 
   catch (IOException e) { e.printStackTrace(); }
+  */
   return null;
  }
  
@@ -73,11 +77,27 @@ public class Main
                                            "','" + SQLStr(o.soldQuantityMessage) + "')");
  }
  
- static void start()
+ static void startold()
  {
   Db db = new Db();
   db.conn();
   OferteToDB(JSONToOferte(FileToStr("D:\\jsons\\raw\\groupon.txt")),db);
+  db.disconn();
+ }
+ 
+ static void start()
+ {
+  Db db = new Db();
+  db.conn();
+  
+  OfferInjector oi = new OfferInjector(db);
+  ECoupons pec = new ECoupons();
+  
+  while(pec.hasNext())
+  {
+   oi.inject(pec.next());
+  }
+  
   db.disconn();
  }
  
