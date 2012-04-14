@@ -12,22 +12,14 @@ public class OfferInjector
   this.db = db;
  }
  
- private void verifyDependencyStore(String store)
- {
-  if(db.count("SELECT count(*) FROM stores WHERE name = '" + Statics.SQLStr(store) + "'") <= 0)
-  {
-  
-  }
- }
- 
- private int getStateID(String state)
+ private int getStoreID(String store)
  {
   return -1;
  }
  
- private int getCityID(String city)
+ private int getCountryID(String country)
  {
-  ResultSet rs = db.query("SELECT id FROM cities WHERE name = '" + city + "'");
+  ResultSet rs = db.query("SELECT id FROM countries WHERE name = '" + country + "'");
   
   try 
   {
@@ -37,13 +29,60 @@ public class OfferInjector
    }
    else
    {
-    db.nonQuery("INSERT INTO cities VALUES (default,'" + city + "',0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)");
-    rs = db.query("SELECT id FROM cities WHERE name = '" + city + "'");
+    db.nonQuery("INSERT INTO countries VALUES (default,'" + country + "','" + Statics.now() + "','" + Statics.now() + "')");
+    rs = db.query("SELECT id FROM countries WHERE name = '" + country + "'");
     rs.next();
     return Integer.parseInt(rs.getString(1));
    }
   } catch (SQLException e) { e.printStackTrace(); }
   return -1;
+ }
+ 
+ private int[] getStateID(String state, String country)
+ {
+  int country_id = getCountryID(country);
+  
+  ResultSet rs = db.query("SELECT id FROM states WHERE name = '" + state + "'");
+  
+  try 
+  {
+   if(rs.next())
+   {
+    return new int[] {Integer.parseInt(rs.getString(1)),country_id};
+   }
+   else
+   {
+    db.nonQuery("INSERT INTO states VALUES (default,'" + state + "'," + country_id + ",'" + Statics.now() + "','" + Statics.now() + "')");
+    rs = db.query("SELECT id FROM states WHERE name = '" + state + "'");
+    rs.next();
+    return new int[] {Integer.parseInt(rs.getString(1)),country_id};
+   }
+  } catch (SQLException e) { e.printStackTrace(); }
+  return new int[] {-1,country_id};
+ }
+ 
+ private int[] getCityID(String city, String state, String country)
+ {
+  int[] tmp = getStateID(state,country);
+  int state_id = tmp[0]; 
+  
+  ResultSet rs = db.query("SELECT id FROM cities WHERE name = '" + city + "'");
+  
+  try 
+  {
+   if(rs.next())
+   {
+    return new int[] {Integer.parseInt(rs.getString(1)),tmp[1]};
+   }
+   else
+   {
+    db.nonQuery("INSERT INTO cities VALUES (default,'" + city + "'," + state_id + ",'" + Statics.now() + "','" + Statics.now() + "')");
+    rs = db.query("SELECT id FROM cities WHERE name = '" + city + "'");
+    rs.next();
+    return new int[] {Integer.parseInt(rs.getString(1)),tmp[1]};
+   }
+  } catch (SQLException e) { e.printStackTrace(); }
+  return new int[] {-1,tmp[1]};
  }
  
  /*
@@ -55,8 +94,9 @@ public class OfferInjector
  
  void inject(Offer offer)
  {
-  int city_id = getCityID(offer.city);
-  int country_id = 0;
+  int[] tmp = getCityID(offer.city,offer.state,offer.country);
+  int city_id = tmp[0]; 
+  int country_id = tmp[1];
   int category_id = 0;
   int store_id = 0;
   
@@ -74,8 +114,9 @@ public class OfferInjector
               city_id + "," +
               country_id + "," +
               category_id + "," +
-              store_id + "," +
-              "CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'" + //post_date, update_date
+              store_id + ",'" +
+              Statics.now() + "','" +
+              Statics.now() + "','" +
               offer.currency + "')");
  }
  

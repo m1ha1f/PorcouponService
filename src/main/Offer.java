@@ -10,6 +10,7 @@ public class Offer
  final String end_at;
  final int price;
  final String city;
+ final String state;
  final String country; 
  final String category;
  final String store;
@@ -24,6 +25,7 @@ public class Offer
               String end_at,
               int price,
               String city,
+              String state,
               String country,
               String category,
               String store,
@@ -40,6 +42,7 @@ public class Offer
   this.end_at = end_at;
   this.price = price;
   this.city = city;
+  this.state = state;
   this.country = country;
   this.category = category;
   this.store = store;

@@ -40,6 +40,7 @@ public class ECoupons extends Parser
                       joferta.fi("expirationDate").toString(),
                       0/*joferta.fi("dealPrice").toInt()*/,
                       joferta.fi("city").toString(),
+                      joferta.fi("state").toString(),
                       "Syberia",
                       "categorie",
                       joferta.fi("storeID").toString(),

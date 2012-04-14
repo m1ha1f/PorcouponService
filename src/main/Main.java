@@ -14,7 +14,7 @@ public class Main
 {
  static void init()
  {
-  
+  Statics.init();
  }
  
  static String GrouponRequest()
