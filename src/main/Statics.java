@@ -2,7 +2,9 @@ package main;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -10,6 +12,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 import java.util.TimeZone;
 
 public class Statics 
@@ -47,6 +50,14 @@ public class Statics
    s = br.readLine(); //chestia asta o sa fie nasoala
   } catch (Exception e) { System.out.println("file read ex"); return null; }
   return s;
+ }
+ 
+ public static String fileToStr2(String fnam)
+ {
+  try 
+  {
+   return new Scanner(new File(fnam)).useDelimiter("\\Z").next();
+  } catch (FileNotFoundException e) { System.out.println("file read ex"); return null; }
  }
  
  static String SQLStr(String s)

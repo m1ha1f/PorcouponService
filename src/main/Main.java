@@ -10,6 +10,7 @@ import java.net.URL;
 
 import parsers.ECoupons;
 import parsers.Hukd;
+import parsers.Yipit;
 
 public class Main 
 {
@@ -93,7 +94,8 @@ public class Main
   
   OfferInjector oi = new OfferInjector(db);
   //ECoupons pec = new ECoupons();
-  Hukd pec = new Hukd();
+  //Hukd pec = new Hukd();
+  Yipit pec = new Yipit();
   
   while(pec.hasNext())
   {

@@ -1,5 +1,7 @@
 package main;
 
+import java.util.ArrayList;
+
 public class TestArea 
 {
  static void test1()
@@ -18,8 +20,29 @@ public class TestArea
   System.out.println(a+b);
  }
  
+ static void test3()
+ {
+  System.out.println(Statics.fileToStr2("D:\\jsons\\raw\\yipit.txt"));
+ }
+ 
+ static void test4()
+ {
+  String json = Statics.fileToStr2("D:\\jsons\\raw\\yipit.txt");
+  JPar jpar = new JPar(json);
+  
+  System.out.println("|"+jpar.fi("response").fi("deals").at(0).fi("business").toString()+"|");
+ }
+ 
+ static void test5()
+ {
+  ArrayList<String> al = new ArrayList<String>();
+  al.add("asd");
+  al.add("qwe");
+  String[] s = (String[]) al.toArray(new String[al.size()]);
+ }
+ 
  public static void main(String[] args)
  {
-  test2();
+  test5();
  }
 }

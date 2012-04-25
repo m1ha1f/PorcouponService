@@ -29,7 +29,7 @@ public class OfferInjector
                                             Statics.now() + "','" + 
                                             Statics.now() + "'," + 
                                             Statics.nvl(url) + ")");
-    rs = db.query("SELECT id FROM stores WHERE name = '" + name + "'");
+    rs = db.query("SELECT id FROM stores WHERE name = '" + Statics.SQLStr(name) + "'");
     rs.next();
     return Integer.parseInt(rs.getString(1));
    }
@@ -128,10 +128,14 @@ public class OfferInjector
     country_id = tmp[1];
    }
   
+  String text;
+  if(offer.text == null) text = "null";
+  else text = "'" + Statics.SQLStr(offer.text) + "'";
+  
   db.nonQuery("INSERT INTO couponsbak VALUES (" +
               "default,'" +
-              Statics.SQLStr(offer.title) + "','" + 
-              Statics.SQLStr(offer.text) + "','" +
+              Statics.SQLStr(offer.title) + "'," + 
+              text + ",'" +
               offer.image_url + "','" +
               offer.deal_url + "','" +
               offer.store_url + "','" +

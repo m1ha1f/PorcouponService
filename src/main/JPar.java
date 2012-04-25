@@ -59,6 +59,15 @@ public class JPar
   catch (Exception e) { return -1; } 
  }
  
+ public double toDouble()
+ {
+  try
+  {
+   return Double.parseDouble(s);
+  }
+  catch (Exception e) { return -1; } 
+ }
+ 
  public String toString()
  {
   return s;
