@@ -12,8 +12,28 @@ public class OfferInjector
   this.db = db;
  }
  
- private int getStoreID(String store)
+ private int getMerchantID(String name, String url)
  {
+  ResultSet rs = db.query("SELECT id FROM stores WHERE name = '" + Statics.SQLStr(name) + "'");
+  
+  try 
+  {
+   if(rs.next())
+   {
+    return Integer.parseInt(rs.getString(1));
+   }
+   else
+   {
+    db.nonQuery("INSERT INTO stores VALUES (default,'" + 
+                                            Statics.SQLStr(name) + "','" + 
+                                            Statics.now() + "','" + 
+                                            Statics.now() + "'," + 
+                                            Statics.nvl(url) + ")");
+    rs = db.query("SELECT id FROM stores WHERE name = '" + name + "'");
+    rs.next();
+    return Integer.parseInt(rs.getString(1));
+   }
+  } catch (SQLException e) { e.printStackTrace(); }
   return -1;
  }
  
@@ -85,36 +105,45 @@ public class OfferInjector
   return new int[] {-1,tmp[1]};
  }
  
- /*
- private void verifyDependencies(Offer offer)
- {
-  //verifyDependencyStore(offer.store_id);
-  getCityID(offer.city);
- }*/
- 
  void inject(Offer offer)
  {
-  int[] tmp = getCityID(offer.city,offer.state,offer.country);
-  int city_id = tmp[0]; 
-  int country_id = tmp[1];
-  int category_id = 0;
-  int store_id = 0;
+  int city_id = -1; 
+  int country_id = -1;
+  int category_id = -1;
+  int store_id = -1;
+  
+  if(offer.store != null)
+   if(offer.store.length() > 0)
+    store_id = getMerchantID(offer.store,offer.store_url);
+  
+  if(offer.country != null)
+   if(offer.country.length() > 0)
+    country_id = getCountryID(offer.country);
+  
+  if(offer.city != null)
+   if(offer.city.length() > 0)
+   {
+    int[] tmp = getCityID(offer.city,offer.state,offer.country);
+    city_id = tmp[0]; 
+    country_id = tmp[1];
+   }
   
   db.nonQuery("INSERT INTO couponsbak VALUES (" +
               "default,'" +
               Statics.SQLStr(offer.title) + "','" + 
-              Statics.SQLStr(offer.title) + "','" +
+              Statics.SQLStr(offer.text) + "','" +
               offer.image_url + "','" +
               offer.deal_url + "','" +
               offer.store_url + "','" +
-              offer.start_at + "','" +
-              offer.end_at + "'," +
-              offer.price + "," +
-              "0,0," + //views, redirs
-              city_id + "," +
-              country_id + "," +
-              category_id + "," +
-              store_id + ",'" +
+              offer.start_at + "'," +
+              Statics.nvl(offer.end_at) + "," +
+              Statics.nvl(offer.price) + "," +
+              (int)(Math.log(Math.random()*10000+1)) + "," +
+              (int)(Math.log(Math.random()*10000+1)) + "," +
+              Statics.nvl(city_id) + "," +
+              Statics.nvl(country_id) + "," +
+              Statics.nvl(category_id) + "," +
+              Statics.nvl(store_id) + ",'" +
               Statics.now() + "','" +
               Statics.now() + "','" +
               offer.currency + "')");

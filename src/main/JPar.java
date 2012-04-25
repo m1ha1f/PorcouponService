@@ -52,7 +52,11 @@ public class JPar
      
  public int toInt()
  {
-  return Integer.parseInt(s);
+  try
+  {
+   return Integer.parseInt(s);
+  }
+  catch (Exception e) { return -1; } 
  }
  
  public String toString()

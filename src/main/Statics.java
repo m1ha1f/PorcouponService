@@ -27,15 +27,13 @@ public class Statics
  
  public static String request(String url)
  {
-  return fileToStr("D:\\jsons\\raw\\8coupons.txt");
-  /*
   try 
   {
    return new BufferedReader(new InputStreamReader(new URL(url).openStream())).readLine();
   } 
   catch (MalformedURLException e) { e.printStackTrace(); } 
   catch (IOException e) { e.printStackTrace(); } 
-  return null; */
+  return null;
  }
  
  public static String fileToStr(String fnam)
@@ -56,7 +54,7 @@ public class Statics
   return s.replaceAll("'","''");
  }
  
- static String now()
+ public static String now()
  {
   try 
   {
@@ -64,5 +62,17 @@ public class Statics
   } catch (ParseException e) { e.printStackTrace(); }
   
   return "";
+ }
+ 
+ static String nvl(int i)
+ {
+  if(i == -1) return "null";
+  else return i+"";
+ }
+ 
+ static String nvl(String s)
+ {
+  if(s == null) return "null";
+  else return "'" + s + "'";
  }
 }

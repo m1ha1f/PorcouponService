@@ -29,8 +29,6 @@ public class Offer
               String country,
               String category,
               String store,
-              String created_at,
-              String updated_at,
               String currency)
  {
   this.title = title;

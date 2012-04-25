@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import parsers.ECoupons;
+import parsers.Hukd;
 
 public class Main 
 {
@@ -91,7 +92,8 @@ public class Main
   db.conn();
   
   OfferInjector oi = new OfferInjector(db);
-  ECoupons pec = new ECoupons();
+  //ECoupons pec = new ECoupons();
+  Hukd pec = new Hukd();
   
   while(pec.hasNext())
   {

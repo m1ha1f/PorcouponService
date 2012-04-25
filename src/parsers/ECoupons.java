@@ -21,7 +21,8 @@ public class ECoupons extends Parser
  {
   //de schimbat adresa
   //http://api.8coupons.com/v1/getrealtimelocaldeals?key=XYZ
-  String json = Statics.request(baseURL+"divisions.json?client_id="+key);
+  //String json = Statics.request(baseURL+"divisions.json?client_id="+key);
+  String json = Statics.fileToStr("D:\\jsons\\raw\\8coupons.txt");
   
   JPar jpar = new JPar(json);
   
@@ -35,17 +36,15 @@ public class ECoupons extends Parser
                       joferta.fi("dealinfo").toString(),
                       joferta.fi("showImage").toString(),
                       Statics.URLplaceholder,
-                      joferta.fi("storeURL").toString(),
+                      null,//joferta.fi("storeURL").toString(),
                       joferta.fi("postDate").toString(),
                       joferta.fi("expirationDate").toString(),
-                      0/*joferta.fi("dealPrice").toInt()*/,
+                      joferta.fi("dealPrice").toInt(),//(int)(Math.random()*20)*100+99,
                       joferta.fi("city").toString(),
                       joferta.fi("state").toString(),
                       "Syberia",
-                      "categorie",
+                      "",
                       joferta.fi("storeID").toString(),
-                      "2001-09-28 01:00",
-                      "2001-09-28 02:00",
                       "USD");
   }
   
