@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import parsers.ECoupons;
+import parsers.Groupon;
 import parsers.Hukd;
 import parsers.Yipit;
 
@@ -95,7 +96,8 @@ public class Main
   OfferInjector oi = new OfferInjector(db);
   //ECoupons pec = new ECoupons();
   //Hukd pec = new Hukd();
-  Yipit pec = new Yipit();
+  //Yipit pec = new Yipit();
+  Groupon pec = new Groupon();
   
   while(pec.hasNext())
   {

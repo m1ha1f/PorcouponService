@@ -6,10 +6,12 @@ import java.sql.SQLException;
 public class OfferInjector 
 {
  Db db;
+ Categorizer categorizer;
  
  OfferInjector(Db db)
  {
   this.db = db;
+  categorizer = new Categorizer();
  }
  
  private int getMerchantID(String name, String url)
@@ -132,6 +134,13 @@ public class OfferInjector
   if(offer.text == null) text = "null";
   else text = "'" + Statics.SQLStr(offer.text) + "'";
   
+  if(offer.category != null)
+  {
+   Category tmp = categorizer.getCategory(offer.category); 
+   if(tmp != null)
+    category_id = tmp.id();
+  }
+    
   db.nonQuery("INSERT INTO couponsbak VALUES (" +
               "default,'" +
               Statics.SQLStr(offer.title) + "'," + 
@@ -142,8 +151,8 @@ public class OfferInjector
               offer.start_at + "'," +
               Statics.nvl(offer.end_at) + "," +
               Statics.nvl(offer.price) + "," +
-              (int)(Math.log(Math.random()*10000+1)) + "," +
-              (int)(Math.log(Math.random()*10000+1)) + "," +
+              (int)(Math.log(Math.random()*1000000000+1)) + "," +
+              (int)(Math.log(Math.random()*1000000000+1)) + "," +
               Statics.nvl(city_id) + "," +
               Statics.nvl(country_id) + "," +
               Statics.nvl(category_id) + "," +

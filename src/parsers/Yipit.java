@@ -53,7 +53,7 @@ public class Yipit extends Parser
   start_at = jpar.fi("date_added").toString();
   end_at = jpar.fi("end_date").toString();
   price = jpar.fi("price").fi("raw").toDouble();
-  category = null;
+  category = jpar.fi("tags").fi("slug").toString();
   store = jpar.fi("business").fi("name").toString();
   currency = "USD";
   

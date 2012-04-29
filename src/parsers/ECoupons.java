@@ -43,8 +43,8 @@ public class ECoupons extends Parser
                       joferta.fi("city").toString(),
                       joferta.fi("state").toString(),
                       "Syberia",
-                      "",
-                      joferta.fi("storeID").toString(),
+                      null,
+                      null,
                       "USD");
   }
   

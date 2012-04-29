@@ -1,5 +1,7 @@
 package parsers;
 
+import java.util.ArrayList;
+
 import main.JPar;
 import main.Offer;
 import main.Statics;
@@ -8,7 +10,17 @@ public class Groupon extends Parser
 {
  private final String key = "9506642c0dce14bc1941e4add332d864d6892589";
  private final String baseURL = "https://api.groupon.com/v2/";
- private String[] divisions;
+ private Offer[] page;
+ private int pointerOnPage, pointerOnDivision;
+ private String[] division;
+ 
+ public Groupon()
+ {
+  division = getDivisions(); //System.out.println(division.length);
+  pointerOnDivision = 0;
+  page = getPage(division[0]);
+  pointerOnPage = 0;
+ }
  
  private String[] getDivisions()
  {
@@ -16,7 +28,7 @@ public class Groupon extends Parser
   
   JPar jpar = new JPar(json);
   jpar = jpar.fi("divisions");
-  String[] ret = new String[jpar.size()];
+  String[] ret = new String[3/*jpar.size()*/];
   
   int i;
   for(i=0;i<ret.length;i++)
@@ -28,44 +40,55 @@ public class Groupon extends Parser
   return ret;
  }
  
- private Offer[] getOfferFromDivision(String divisionid)
+ private Offer[] getPage(String divisionid)
  {
-  String json = Statics.request(baseURL+"divisions.json?client_id="+key+"&division_id="+divisionid);
+  String json = Statics.request(baseURL+"deals.json?client_id="+key+"&division_id="+divisionid);
   
   JPar jpar = new JPar(json);
   jpar = jpar.fi("deals");
-  Offer[] ret;
- 
-  ret = new Offer[jpar.size()];
   
+  Offer[] ret = new Offer[jpar.size()];
+
   int i;
   for(i=0;i<ret.length;i++)
   {
    JPar joferta = jpar.at(i);
-   /*
-   ret[i] = new Offer(joferta.fi("announcementTitle").toString(),
+   ret[i] = new Offer(joferta.fi("title").toString(),
                       joferta.fi("pitchHtml").toString(),
-                      joferta.fi("mediumImageUrl").toString(),
+                      joferta.fi("largeImageUrl").toString(),
+                      joferta.fi("options").at(0).fi("buyUrl").toString(),
                       joferta.fi("merchant").fi("websiteUrl").toString(),
-                      "", //startat
+                      joferta.fi("startAt").toString(),
                       joferta.fi("endAt").toString(),
-                      joferta.fi("options").at(0).fi("value").fi("amount").toInt(),
-                      0,
-                      0
-                      ); */
+                      joferta.fi("options").at(0).fi("price").fi("amount").toInt(), //(int)(Math.random()*20)*100+99
+                      joferta.fi("redemptionLocation").toString(),
+                      null,
+                      "URSS",
+                      joferta.fi("tags").at(0).fi("name").toString(),
+                      joferta.fi("merchant").fi("name").toString(),
+                      "USD");
   }
-  
   return ret;
  }
- 
- public Offer next()
- {
-  
-  return null;
- }
 
- boolean hasNext() 
+ public Offer next() 
  {
-  return false;
+  Offer tmp = page[pointerOnPage];
+  pointerOnPage++;
+  if(pointerOnPage >= page.length)
+  {
+   System.out.println(pointerOnPage+" "+pointerOnDivision);
+   pointerOnDivision++;
+   if(pointerOnDivision >= division.length)
+    return null;
+   page = getPage(division[pointerOnDivision]);
+   pointerOnPage = 0;
+  }
+  return tmp;
+ }
+ 
+ public boolean hasNext()
+ {
+  return pointerOnDivision < division.length;
  }
 }
