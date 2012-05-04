@@ -8,8 +8,8 @@ import main.Statics;
 
 public class Yipit extends Parser 
 {
- private final String key = "9506642c0dce14bc1941e4add332d864d6892589";
- private final String baseURL = "http://api.hotukdeals.com/rest_api/v2/";
+ private final String key = "cbLZGWVFgHLkVfPT";
+ private final String baseURL = "http://api.yipit.com/v1/deals/";
  private Offer[] page;
  private int pointerOnPage;
  
@@ -21,7 +21,7 @@ public class Yipit extends Parser
  
  private Offer[] getPage(int page)
  {
-  //de lucru
+  //String json = Statics.request(baseURL + "?key=" + key + "&limit=500");
   String json = Statics.fileToStr2("D:\\jsons\\raw\\yipit.txt");
   JPar jpar = new JPar(json);
   
@@ -54,7 +54,7 @@ public class Yipit extends Parser
   start_at = jpar.fi("date_added").toString();
   end_at = jpar.fi("end_date").toString();
   price = jpar.fi("price").fi("raw").toDouble();
-  category = jpar.fi("tags").fi("slug").toString();
+  category = jpar.fi("tags").at(0).fi("slug").toString();
   store = jpar.fi("business").fi("name").toString();
   currency = "USD";
   

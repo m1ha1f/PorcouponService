@@ -46,8 +46,10 @@ public class Main
   
   OfferInjector oi = new OfferInjector(db);
 
-  doHukd(oi);
-  
+  //doHukd(oi);
+  doECoupons(oi);
+  //doYipit(oi);
+  //doGroupon(oi);
   
   db.disconn();
  }
