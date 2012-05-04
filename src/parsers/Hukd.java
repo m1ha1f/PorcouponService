@@ -6,7 +6,7 @@ import main.Statics;
 
 public class Hukd extends Parser 
 {
- private final String key = "9506642c0dce14bc1941e4add332d864d6892589";
+ private final String key = "8797b1c4482a8715b49b26c41f2d4434";
  private final String baseURL = "http://api.hotukdeals.com/rest_api/v2/";
  private Offer[] page;
  private int pointerOnPage;
@@ -19,10 +19,8 @@ public class Hukd extends Parser
  
  private Offer[] getPage(int page)
  {
-  //de schimbat adresa
-  //http://api.8coupons.com/v1/getrealtimelocaldeals?key=XYZ
-  //String json = Statics.request(baseURL+"divisions.json?client_id="+key);
-  String json = Statics.fileToStr("D:\\jsons\\raw\\hukd.txt");
+//String json = Statics.fileToStr("D:\\jsons\\raw\\hukd.txt");
+  String json = Statics.request(baseURL+"?key="+key+"&output=json&results_per_page=100");
   
   JPar jpar = new JPar(json);
   jpar = jpar.fi("deals").fi("items");

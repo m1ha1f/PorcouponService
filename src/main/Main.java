@@ -95,9 +95,9 @@ public class Main
   
   OfferInjector oi = new OfferInjector(db);
   //ECoupons pec = new ECoupons();
-  //Hukd pec = new Hukd();
+  Hukd pec = new Hukd();
   //Yipit pec = new Yipit();
-  Groupon pec = new Groupon();
+  //Groupon pec = new Groupon();
   
   while(pec.hasNext())
   {

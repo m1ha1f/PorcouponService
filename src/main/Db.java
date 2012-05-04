@@ -26,7 +26,7 @@ public class Db
   {
    Class.forName(driver).newInstance();
    conn = DriverManager.getConnection(url+dbName,userName,password);
-  } catch(Exception e) { System.out.println("conn ex"); }
+  } catch(Exception e) { System.out.println("conn ex"); /*should exit*/ }
  }
 
  void disconn()
@@ -34,7 +34,7 @@ public class Db
   try
   {
    conn.close();
-  } catch(Exception e) { System.out.println("disconn ex"); }
+  } catch(Exception e) { System.out.println("disconn ex"); /*should exit*/ }
  }
  
  void nonQuery(String str)

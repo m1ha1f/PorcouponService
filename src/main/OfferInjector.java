@@ -141,18 +141,18 @@ public class OfferInjector
     category_id = tmp.id();
   }
     
-  db.nonQuery("INSERT INTO couponsbak VALUES (" +
+  db.nonQuery("INSERT INTO coupons VALUES (" +
               "default,'" +
               Statics.SQLStr(offer.title) + "'," + 
               text + ",'" +
               offer.image_url + "','" +
               offer.deal_url + "','" +
-              offer.store_url + "','" +
+              //offer.store_url + "','" +
               offer.start_at + "'," +
               Statics.nvl(offer.end_at) + "," +
               Statics.nvl(offer.price) + "," +
-              (int)(Math.log(Math.random()*1000000000+1)) + "," +
-              (int)(Math.log(Math.random()*1000000000+1)) + "," +
+              (int)(Math.random()*1000000000) + "," +
+              (int)(Math.random()*1000000000) + "," +
               Statics.nvl(city_id) + "," +
               Statics.nvl(country_id) + "," +
               Statics.nvl(category_id) + "," +
