@@ -17,14 +17,14 @@ public class JPar
  public JPar at(int i)
  {
   JSONArray o;
-  try { o = (JSONArray)par.parse(s); } catch(Exception e) { return null; }
+  try { o = (JSONArray)par.parse(s); } catch(Exception e) { Dbo.out("JPar at("+i+") ex"); return null; }
   return new JPar(o.get(i).toString());
  }
      
  public JPar fi(String s)
  {
   JSONObject o;
-  try { o = (JSONObject)par.parse(this.s); } catch(Exception e) { return null; }
+  try { o = (JSONObject)par.parse(this.s); } catch(Exception e) { Dbo.out("JPar fi(\""+s+"\") ex"); return null; }
   //System.out.println("field "+s+"|");
   if(o.get(s) == null) return new JPar("");
   return new JPar(o.get(s).toString());
@@ -34,7 +34,7 @@ public class JPar
  {
   String[] ret;
   JSONArray o;
-  try { o = (JSONArray)par.parse(s); } catch (Exception e) { return null; }
+  try { o = (JSONArray)par.parse(s); } catch (Exception e) { Dbo.out("JPar ar ex"); return null; }
       
   ret = new String[o.size()];
   int i;
@@ -46,7 +46,7 @@ public class JPar
  public int size()
  {
   JSONArray o;
-  try { o = (JSONArray)par.parse(s); } catch (Exception e) { return -1; }
+  try { o = (JSONArray)par.parse(s); } catch (Exception e) { Dbo.out("JPar size ex"); return -1; }
   return o.size();
  }
      
@@ -56,7 +56,7 @@ public class JPar
   {
    return Integer.parseInt(s);
   }
-  catch (Exception e) { return -1; } 
+  catch (Exception e) { Dbo.out("JPar toInt ex"); return -1; } 
  }
  
  public double toDouble()
@@ -65,7 +65,7 @@ public class JPar
   {
    return Double.parseDouble(s);
   }
-  catch (Exception e) { return -1; } 
+  catch (Exception e) { Dbo.out("JPar toDouble ex"); return -1; } 
  }
  
  public String toString()

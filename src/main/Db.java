@@ -26,7 +26,7 @@ public class Db
   {
    Class.forName(driver).newInstance();
    conn = DriverManager.getConnection(url+dbName,userName,password);
-  } catch(Exception e) { System.out.println("conn ex"); /*should exit*/ }
+  } catch(Exception e) { Dbo.terminate("DB conn ex"); }
  }
 
  void disconn()
@@ -34,7 +34,7 @@ public class Db
   try
   {
    conn.close();
-  } catch(Exception e) { System.out.println("disconn ex"); /*should exit*/ }
+  } catch(Exception e) { Dbo.terminate("DB disconn ex"); }
  }
  
  void nonQuery(String str)
@@ -42,7 +42,7 @@ public class Db
   try
   {
    conn.createStatement().executeUpdate(str);
-  } catch (SQLException e) { e.printStackTrace(); }
+  } catch (SQLException e) { Dbo.out("SQL nonQuery ex"); e.printStackTrace(); }
  }
  
  ResultSet query(String str)
@@ -50,7 +50,7 @@ public class Db
   try
   {
    return conn.createStatement().executeQuery(str); 
-  } catch (SQLException e) { return null; }
+  } catch (SQLException e) { Dbo.out("SQL query ex"); return null; }
  }
  
  int count(String str)
@@ -58,6 +58,6 @@ public class Db
   try
   {
    return Integer.parseInt(conn.createStatement().executeQuery(str).getString(1));
-  } catch (SQLException e) { return -1; }
+  } catch (SQLException e) { Dbo.out("SQL count ex"); return -1; }
  }
 }

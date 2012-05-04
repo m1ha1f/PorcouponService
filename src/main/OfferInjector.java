@@ -35,7 +35,7 @@ public class OfferInjector
     rs.next();
     return Integer.parseInt(rs.getString(1));
    }
-  } catch (SQLException e) { e.printStackTrace(); }
+  } catch (SQLException e) { Dbo.out("SQL ex"); e.printStackTrace(); }
   return -1;
  }
  
@@ -56,7 +56,7 @@ public class OfferInjector
     rs.next();
     return Integer.parseInt(rs.getString(1));
    }
-  } catch (SQLException e) { e.printStackTrace(); }
+  } catch (SQLException e) { Dbo.out("SQL ex"); e.printStackTrace(); }
   return -1;
  }
  
@@ -79,7 +79,7 @@ public class OfferInjector
     rs.next();
     return new int[] {Integer.parseInt(rs.getString(1)),country_id};
    }
-  } catch (SQLException e) { e.printStackTrace(); }
+  } catch (SQLException e) { Dbo.out("SQL ex"); e.printStackTrace(); }
   return new int[] {-1,country_id};
  }
  
@@ -103,7 +103,7 @@ public class OfferInjector
     rs.next();
     return new int[] {Integer.parseInt(rs.getString(1)),tmp[1]};
    }
-  } catch (SQLException e) { e.printStackTrace(); }
+  } catch (SQLException e) { Dbo.out("SQL ex"); e.printStackTrace(); }
   return new int[] {-1,tmp[1]};
  }
  
@@ -151,8 +151,8 @@ public class OfferInjector
               offer.start_at + "'," +
               Statics.nvl(offer.end_at) + "," +
               Statics.nvl(offer.price) + "," +
-              (int)(Math.random()*1000000000) + "," +
-              (int)(Math.random()*1000000000) + "," +
+              (int)(Math.random()*1000000) + "," +
+              (int)(Math.random()*1000000) + "," +
               Statics.nvl(city_id) + "," +
               Statics.nvl(country_id) + "," +
               Statics.nvl(category_id) + "," +

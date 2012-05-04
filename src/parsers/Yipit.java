@@ -21,6 +21,7 @@ public class Yipit extends Parser
  
  private Offer[] getPage(int page)
  {
+  //de lucru
   String json = Statics.fileToStr2("D:\\jsons\\raw\\yipit.txt");
   JPar jpar = new JPar(json);
   
@@ -72,7 +73,7 @@ public class Yipit extends Parser
                       store_url,
                       start_at,
                       end_at,
-                      (int)price, //(int)(Math.random()*20)*100+99
+                      (int)price,
                       jparloc.fi("locality").toString(),
                       jparloc.fi("state").toString(),
                       "Congo",    

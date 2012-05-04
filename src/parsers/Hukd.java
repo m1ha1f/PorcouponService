@@ -38,7 +38,7 @@ public class Hukd extends Parser
                       joferta.fi("merchant").fi("url_name").toString(),
                       Statics.now(),
                       null,
-                      joferta.fi("dealPrice").toInt(), //(int)(Math.random()*20)*100+99
+                      joferta.fi("dealPrice").toInt(),
                       null,
                       null,
                       "UK",

@@ -1,7 +1,5 @@
 package parsers;
 
-import java.util.ArrayList;
-
 import main.JPar;
 import main.Offer;
 import main.Statics;
@@ -16,7 +14,7 @@ public class Groupon extends Parser
  
  public Groupon()
  {
-  division = getDivisions(); //System.out.println(division.length);
+  division = getDivisions();
   pointerOnDivision = 0;
   page = getPage(division[0]);
   pointerOnPage = 0;
@@ -28,7 +26,7 @@ public class Groupon extends Parser
   
   JPar jpar = new JPar(json);
   jpar = jpar.fi("divisions");
-  String[] ret = new String[3/*jpar.size()*/];
+  String[] ret = new String[10/*jpar.size()*/];
   
   int i;
   for(i=0;i<ret.length;i++)
@@ -60,7 +58,7 @@ public class Groupon extends Parser
                       joferta.fi("merchant").fi("websiteUrl").toString(),
                       joferta.fi("startAt").toString(),
                       joferta.fi("endAt").toString(),
-                      joferta.fi("options").at(0).fi("price").fi("amount").toInt(), //(int)(Math.random()*20)*100+99
+                      joferta.fi("options").at(0).fi("price").fi("amount").toInt(),
                       joferta.fi("redemptionLocation").toString(),
                       null,
                       "URSS",

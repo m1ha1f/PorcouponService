@@ -37,8 +37,8 @@ public class Statics
   {
    return new BufferedReader(new InputStreamReader(new URL(url).openStream())).readLine();
   } 
-  catch (MalformedURLException e) { e.printStackTrace(); } 
-  catch (IOException e) { e.printStackTrace(); } 
+  catch (MalformedURLException e) { Dbo.out("Request ex: bad URL"); e.printStackTrace(); } 
+  catch (IOException e) { Dbo.out("Request ex"); e.printStackTrace(); } 
   return null;
  }
  
@@ -47,7 +47,7 @@ public class Statics
   FileOutputStream fos;
   try 
   {
-   fos = new FileOutputStream((int)(Math.random()*10000000)+".txt");
+   fos = new FileOutputStream((int)(Math.random()*10000000)+".txt"); //not so smart
    DataOutputStream out = new DataOutputStream(fos);
    out.writeUTF(request);
    out.close();
@@ -63,10 +63,10 @@ public class Statics
    FileInputStream fis = new FileInputStream(fnam);
    DataInputStream in = new DataInputStream(fis);
    BufferedReader br = new BufferedReader(new InputStreamReader(in));
-   s = br.readLine(); //chestia asta o sa fie nasoala
+   s = br.readLine(); //some files may have more than one lines :(
    in.close();
    fis.close();
-  } catch (Exception e) { System.out.println("file read ex"); return null; }
+  } catch (Exception e) { Dbo.out("File read ex"); return null; }
   return s;
  }
  
@@ -75,7 +75,7 @@ public class Statics
   try 
   {
    return new Scanner(new File(fnam)).useDelimiter("\\Z").next();
-  } catch (FileNotFoundException e) { System.out.println("file read ex"); return null; }
+  } catch (FileNotFoundException e) { Dbo.out("File read ex"); return null; }
  }
  
  static String SQLStr(String s)
@@ -88,7 +88,7 @@ public class Statics
   try 
   {
    return dateFormatLocal.parse(dateFormatGmt.format(new Date())).toString();
-  } catch (ParseException e) { e.printStackTrace(); }
+  } catch (ParseException e) { Dbo.out("Now ex"); e.printStackTrace(); }
   
   return "";
  }

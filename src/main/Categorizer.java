@@ -125,7 +125,7 @@ public class Categorizer
  
  Category getCategory(String s)
  {
-  if(!map.containsKey(s)) return null;
+  if(!map.containsKey(s)) { Dbo.out("Unheard-of category: |"+s+"|"); return null; }
   return map.get(s);
  }
  
